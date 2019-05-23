@@ -50,6 +50,8 @@ exports.updateMed = async (req, reply) => {
   try {
     const id = req.params.id
     const med = req.body
+    console.warn("REQUEST ID: ", id)
+    console.warn("REQUEST MED: ", med)
     const { ...updateData } = med
     const update = await Med.findByIdAndUpdate(id, updateData, { new: true })
     return update

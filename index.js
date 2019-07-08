@@ -1,6 +1,11 @@
 const fastify = require('fastify')({
   logger: true
   })
+
+  fastify.register(require('fastify-cors'), { 
+    // put your options here
+    origin: true
+  })
   
   // Declare a route
   fastify.get('/', async (request, reply) => {
@@ -10,7 +15,7 @@ const fastify = require('fastify')({
   // Run the server!
   const start = async () => {
     try {
-      await fastify.listen(3000, '0.0.0.0')
+      await fastify.listen(3001, '0.0.0.0')
       fastify.log.info(`server listening on ${fastify.server.address().port}`)
     } catch (err) {
       fastify.log.error(err)

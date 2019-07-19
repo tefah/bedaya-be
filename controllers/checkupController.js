@@ -1,3 +1,4 @@
+// 'use strict';
 // External Dependancies
 const boom = require('boom')
 
@@ -17,7 +18,8 @@ exports.getCheckupDataAll = async (req, reply) => {
 exports.getCheckupData = async (request, reply) => {
   try {
     const id = request.params.patientID
-    const checkup = await Checkup.find({"patientID": id})
+    const checkup = await Checkup.find({"patientID": id}, {'_id': 0})
+    console.log('>>>>>>>>>>>>>>>>>>>>>>: ', checkup)
     return checkup
   } catch (err) {
     throw boom.boomify(err)

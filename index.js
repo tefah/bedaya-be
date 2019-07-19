@@ -24,7 +24,7 @@ const fastify = require('fastify')({
   }
   start()
 
-  const routes = require(`./routes`);
+  const routes = require('./routes/index');
   routes.forEach((route, index) => {
     fastify.route(route)
    })

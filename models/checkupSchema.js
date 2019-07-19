@@ -12,6 +12,6 @@ const checkupFields = {
 }
 
 // console.log('checkupFIELDS: ', ch.checkupFields)
-const checkupSchema = new Schema(checkupFields);
+const checkupSchema = new Schema(checkupFields, {strict: false});
 
 module.exports = mongoose.model('Checkup', checkupSchema);

@@ -13,7 +13,12 @@ const lab3Schema = require('../models/lab3Schema')
 const lab3Controller = require('../controllers/lab3Controller')
 const lab4Schema = require('../models/lab4Schema')
 const lab4Controller = require('../controllers/lab4Controller')
+const pharmacySchema = require('../models/pharmacySchema')
+const pharmacyController = require('../controllers/pharmacyController')
+const followupSchema = require('../models/followupSchema')
+const followupController = require('../controllers/followupController')
 
+const mainController = require('../controllers/mainController')
 
 const routes = [
   //medications routes
@@ -205,7 +210,76 @@ const routes = [
       url: '/api/deleteLab4/:patientID',
       handler: lab4Controller.deleteLab4
     },
-    
+    // pharmacy data routes
+    {
+      method: 'GET',
+      url: '/api/pharmacyall',
+      handler: pharmacyController.getPharmacyDataAll
+    },
+    {
+      method: 'GET',
+      url: '/api/pharmacyData/:patientID',
+      handler: pharmacyController.getPharmacyData
+    },
+    {
+      method: 'POST',
+      url: '/api/pharmacy',
+      handler: pharmacyController.addPharmacy,
+      schema: pharmacySchema,
+    },
+    {
+      method: 'PUT',
+      url: '/api/updatePharmacy/:patientID',
+      handler: pharmacyController.updatePharmacy
+    },
+    {
+      method: 'DELETE',
+      url: '/api/deletePharmacy/:patientID',
+      handler: pharmacyController.deletePharmacy
+    },
+    // followup data routes
+    {
+      method: 'GET',
+      url: '/api/followupall',
+      handler: followupController.getFollowupDataAll
+    },
+    {
+      method: 'GET',
+      url: '/api/followupData/:patientID',
+      handler: followupController.getFollowupData
+    },
+    {
+      method: 'POST',
+      url: '/api/followup',
+      handler: followupController.addFollowup,
+      schema: followupSchema,
+    },
+    {
+      method: 'PUT',
+      url: '/api/updateFollowup/:patientID',
+      handler: followupController.updateFollowup
+    },
+    {
+      method: 'DELETE',
+      url: '/api/deleteFollowup/:patientID',
+      handler: followupController.deleteFollowup
+    },
+    // followup data routes
+    {
+      method: 'GET',
+      url: '/api/allpatients',
+      handler: checkupController.getCheckupDataAll
+    },
+    {
+      method: 'DELETE',
+      url: '/api/deletePatient/:patientID',
+      handler: mainController.deletePatient
+    },
+    {
+      method: 'GET',
+      url: '/api/expcsv',
+      handler: mainController.getAllData
+    },
 ]
 
 module.exports = routes

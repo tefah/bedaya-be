@@ -27,14 +27,14 @@ magic = (arr, patientID) => {
 
 exports.getAllData = async (req, reply) => {
   try {
-    const checkup = await Checkup.find()
-    const checkup2 = await Checkup2.find()
-    const lab1 = await Lab1.find()
-    const lab2 = await Lab2.find()
-    const lab3 = await Lab3.find()
-    const lab4 = await Lab4.find()
-    const pharmacy = await Pharmacy.find()
-    const followup = await Followup.find()
+    const checkup = await Checkup.find(null, {'_id': 0})
+    const checkup2 = await Checkup2.find(null, {'_id': 0})
+    const lab1 = await Lab1.find(null, {'_id': 0})
+    const lab2 = await Lab2.find(null, {'_id': 0})
+    const lab3 = await Lab3.find(null, {'_id': 0})
+    const lab4 = await Lab4.find(null, {'_id': 0})
+    const pharmacy = await Pharmacy.find(null, {'_id': 0})
+    const followup = await Followup.find(null, {'_id': 0})
     const allData = checkup.map(entry => {
       const ch = entry['_doc']
       const ch2 = magic(checkup2, entry.patientID)
@@ -64,10 +64,11 @@ exports.getAllData = async (req, reply) => {
     converter.json2csv(allData, (err, csv)=>{
       if(err)
         return err;
-      csvback = csv
-      console.log(csv)
+      // console.log(csv)
+      reply.header('Content-Type', 'text/csv; charset=utf-8')
+      reply.header('Content-Disposition', 'attachment; filename=all-patients.csv')
+      .send(csv)
     })
-    return csvback
   } catch (err) {
     throw boom.boomify(err)
   }
@@ -84,8 +85,7 @@ exports.deletePatient = async (req, reply) => {
     const lab4 = await Lab4.findOneAndRemove({"patientID": id})
     const pharmacy = await Pharmacy.findOneAndRemove({"patientID": id})
     const followup = await Followup.findOneAndRemove({"patientID": id})
-    reply.header('Content-Type', 'text/csv; charset=utf-8')
-      .send(csvback)
+    return id;
   } catch (err) {
     throw boom.boomify(err)
   }

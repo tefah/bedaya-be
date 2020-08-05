@@ -11,7 +11,7 @@
   "dependencies": {
     "boom": "^7.3.0",
     "cors": "^2.8.5",
-    "fastify": "^2.2.0",
+    "fastify": "^2.15.1",
     "fastify-cors": "^2.1.3",
     "fastify-swagger": "^2.3.2",
     "json-2-csv": "^3.5.5",
